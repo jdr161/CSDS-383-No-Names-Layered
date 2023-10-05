@@ -29,11 +29,13 @@ class CreateEventForm extends Component {
         const handleDescriptionChange = (e) => this.setState({ descriptionInput: e.target.value})
         const handleEmailInput = (e) => this.setState({ emailInput: e.target.value})
 
+        const emailRegex = new RegExp('^(?=.{1,64}@)[A-Za-z0-9_-]+(\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*(\.[A-Za-z]{2,})$');
+
         const isDateError = dateInput === ''
         const isTimeError = timeInput === ''
-        const isTitleError = titleInput === ''
-        const isDescriptionError = descriptionInput === ''
-        const isEmailError = emailInput === ''
+        const isTitleError = titleInput === '' | titleInput.length > 255
+        const isDescriptionError = descriptionInput === '' | descriptionInput.length > 600
+        const isEmailError = emailInput === '' | !emailRegex.test(emailInput)
 
         return (
             <>

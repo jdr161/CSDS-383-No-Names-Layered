@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import { Button, ButtonGroup } from "@chakra-ui/react"
 
 import CreateEventForm from './Forms/CreateEventForm'
 import CreateParticipantForm from './Forms/CreateParticipantForm'
@@ -26,8 +27,6 @@ class Page extends Component {
                     showCreateEventForm: true,
                     showCreateParticipantForm: false,
                     showRegisterParticipantForm: false,
-                    showEventsTable: false,
-                    showParticipantsTable: false
                 })
                 break
             case "showCreateParticipantForm":
@@ -35,8 +34,6 @@ class Page extends Component {
                     showCreateEventForm: false,
                     showCreateParticipantForm: true,
                     showRegisterParticipantForm: false,
-                    showEventsTable: false,
-                    showParticipantsTable: false
                 })
                 break
             case "showRegisterParticipantForm":
@@ -44,24 +41,16 @@ class Page extends Component {
                     showCreateEventForm: false,
                     showCreateParticipantForm: false,
                     showRegisterParticipantForm: true,
-                    showEventsTable: false,
-                    showParticipantsTable: false
                 })
                 break
             case "showEventsTable":
                 this.setState({
-                    showCreateEventForm: false,
-                    showCreateParticipantForm: false,
-                    showRegisterParticipantForm: false,
                     showEventsTable: true,
                     showParticipantsTable: false
                 })
                 break
             case "showParticipantsTable":
                 this.setState({
-                    showCreateEventForm: false,
-                    showCreateParticipantForm: false,
-                    showRegisterParticipantForm: false,
                     showEventsTable: false,
                     showParticipantsTable: true
                 })
@@ -76,18 +65,24 @@ class Page extends Component {
         return(
             <>
             <div>
-                <button onClick={() => this.showComponent("showCreateEventForm")}>Create Event</button>
-                <button onClick={() => this.showComponent("showCreateParticipantForm")}>Create Participant</button>
-                <button onClick={() => this.showComponent("showRegisterParticipantForm")}>Register Participant</button>
-                <button onClick={() => this.showComponent("showEventsTable")}>Show All Event</button>
-                <button onClick={() => this.showComponent("showParticipantsTable")}>Show All Participants</button>
+                <ButtonGroup variant='outline' spacing='6'>
+                    <Button onClick={() => this.showComponent("showCreateEventForm")}>Create Event</Button>
+                    <Button onClick={() => this.showComponent("showCreateParticipantForm")}>Create Participant</Button>
+                    <Button onClick={() => this.showComponent("showRegisterParticipantForm")}>Register Participant</Button>
+                </ButtonGroup>
             </div>
             <div>
+                <ButtonGroup variant='outline' spacing='6'>
+                    <Button onClick={() => this.showComponent("showEventsTable")}>Show All Event</Button>
+                    <Button onClick={() => this.showComponent("showParticipantsTable")}>Show All Participants</Button>
+                </ButtonGroup>
+            </div>
+            <div>
+                {showEventsTable && <EventsTable/>}
+                {showParticipantsTable && <ParticipantsTable/>}
                 {showCreateEventForm && <CreateEventForm/>}
                 {showCreateParticipantForm && <CreateParticipantForm/>}
                 {showRegisterParticipantForm && <RegisterParticipantForm/>}
-                {showEventsTable && <EventsTable/>}
-                {showParticipantsTable && <ParticipantsTable/>}
             </div>
             </>
         )

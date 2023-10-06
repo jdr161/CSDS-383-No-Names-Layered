@@ -61,16 +61,16 @@ class CreateParticipantForm extends Component {
                 <FormControl isInvalid={isNameError}>
                     <FormLabel>Name</FormLabel>
                     <Input type='text' value={nameInput} onChange={handleNameChange} placeholder="Enter the name of the participant..." />
-                    {!isNameError &&
-                        <FormErrorMessage>Name should be between 1 and 600 characters, inclusive. Try again</FormErrorMessage>
+                    {isNameError &&
+                        <FormErrorMessage>Name should be between 1 and 600 characters, inclusive.</FormErrorMessage>
                     }
                 </FormControl>
 
                 <FormControl isInvalid={isEmailError}>
                     <FormLabel>Host Email</FormLabel>
                     <Input type='email' value={emailInput} onChange={handleEmailInput} placeholder="Enter the email of the event host..." />
-                    {!isEmailError &&
-                        <FormErrorMessage>Invalid email. Try again</FormErrorMessage>
+                    {isEmailError &&
+                        <FormErrorMessage>Invalid email.</FormErrorMessage>
                     }
                 </FormControl>
                 <Button onClick={handleSubmit} isDisabled={submitDisabled}>Submit</Button>

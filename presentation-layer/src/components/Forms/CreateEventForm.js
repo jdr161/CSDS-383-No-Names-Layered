@@ -74,7 +74,7 @@ class CreateEventForm extends Component {
                 <FormControl isInvalid={isDateError}>
                     <FormLabel>Date</FormLabel>
                     <Input type='date' value={dateInput} onChange={handleDateChange} placeholder="Set a date for the event..." />
-                    {!isDateError &&
+                    {isDateError &&
                         <FormErrorMessage>Date is required.</FormErrorMessage>
                     }
                 </FormControl>
@@ -82,7 +82,7 @@ class CreateEventForm extends Component {
                 <FormControl isInvalid={isTimeError}>
                     <FormLabel>Time</FormLabel>
                     <Input type='time' value={timeInput} onChange={handleTimeChange} placeholder="Set a time for the event..." />
-                    {!isTimeError &&
+                    {isTimeError &&
                         <FormErrorMessage>Email is required.</FormErrorMessage>
                     }
                 </FormControl>
@@ -90,24 +90,24 @@ class CreateEventForm extends Component {
                 <FormControl isInvalid={isTitleError}>
                     <FormLabel>Title</FormLabel>
                     <Input type='text' value={titleInput} onChange={handleTitleChange} placeholder="Set the title for the event..." />
-                    {!isTitleError &&
-                        <FormErrorMessage>Title should be between 1 and 255 characters, inclusive. Try again</FormErrorMessage>
+                    {isTitleError &&
+                        <FormErrorMessage>Title should be between 1 and 255 characters, inclusive.</FormErrorMessage>
                     }
                 </FormControl>
                 
                 <FormControl isInvalid={isDescriptionError}>
                     <FormLabel>Description</FormLabel>
                     <Input type='text' value={descriptionInput} onChange={handleDescriptionChange} placeholder="Set the description for the event..." />
-                    {!isDescriptionError &&
-                        <FormErrorMessage>Description should be between 1 and 600 characters, inclusive. Try again</FormErrorMessage>
+                    {isDescriptionError &&
+                        <FormErrorMessage>Description should be between 1 and 600 characters, inclusive.</FormErrorMessage>
                     }
                 </FormControl>
 
                 <FormControl isInvalid={isEmailError}>
                     <FormLabel>Host Email</FormLabel>
                     <Input type='email' value={emailInput} onChange={handleEmailInput} placeholder="Enter the email of the event host..." />
-                    {!isEmailError &&
-                        <FormErrorMessage>Invalid email. Try again</FormErrorMessage>
+                    {isEmailError &&
+                        <FormErrorMessage>Invalid email.</FormErrorMessage>
                     }
                 </FormControl>
                 <Button onClick={handleSubmit} isDisabled={submitDisabled}>Submit</Button>

@@ -51,7 +51,7 @@ class RegisterParticipantForm extends Component {
                 <FormControl isInvalid={isEventError}>
                     <FormLabel>Event UUID</FormLabel>
                     <Input type='text' value={eventInput} onChange={handleEventChange} placeholder="" />
-                    {!isEventError &&
+                    {isEventError &&
                         <FormErrorMessage>Event UUID is required</FormErrorMessage>
                     }
                 </FormControl>
@@ -59,8 +59,8 @@ class RegisterParticipantForm extends Component {
                 <FormControl isInvalid={isParticipantError}>
                     <FormLabel>Participant UUID</FormLabel>
                     <Input type='text' value={participantInput} onChange={handleParticipantChange} placeholder="" />
-                    {!isParticipantError &&
-                        <FormErrorMessage>Participant UUID</FormErrorMessage>
+                    {isParticipantError &&
+                        <FormErrorMessage>Participant UUID is required</FormErrorMessage>
                     }
                 </FormControl>
 

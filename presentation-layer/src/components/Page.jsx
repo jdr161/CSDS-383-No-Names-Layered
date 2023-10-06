@@ -69,7 +69,7 @@ class Page extends Component {
                         <Button onClick={() => this.showComponent("showCreateEventForm")}>Create Event</Button>
                         <Button onClick={() => this.showComponent("showCreateParticipantForm")}>Create Participant</Button>
                         <Button onClick={() => this.showComponent("showRegisterParticipantForm")}>Register Participant</Button>
-                        <Button onClick={() => this.showComponent("showEventsTable")}>Show All Event</Button>
+                        <Button onClick={() => this.showComponent("showEventsTable")}>Show All Events</Button>
                         <Button onClick={() => this.showComponent("showParticipantsTable")}>Show All Participants</Button>
                     </HStack>
                     <Stack maxHeight={'100%'} p={4} spacing={8}>

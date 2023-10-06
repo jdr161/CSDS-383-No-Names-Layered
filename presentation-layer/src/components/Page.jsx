@@ -5,6 +5,7 @@ import CreateParticipantForm from './Forms/CreateParticipantForm'
 import RegisterParticipantForm from './Forms/RegisterParticipantForm'
 import EventsTable from './Tables/EventsTable'
 import ParticipantsTable from './Tables/ParticipantsTable'
+import { Container, Stack, HStack, Button, Flex } from "@chakra-ui/react"
 
 
 class Page extends Component {
@@ -19,8 +20,8 @@ class Page extends Component {
         }
     }
 
-    showComponent(name){
-        switch(name){
+    showComponent(name) {
+        switch (name) {
             case "showCreateEventForm":
                 this.setState({
                     showCreateEventForm: true,
@@ -73,23 +74,25 @@ class Page extends Component {
     }
     render() {
         const { showCreateEventForm, showCreateParticipantForm, showRegisterParticipantForm, showEventsTable, showParticipantsTable } = this.state
-        return(
-            <>
-            <div>
-                <button onClick={() => this.showComponent("showCreateEventForm")}>Create Event</button>
-                <button onClick={() => this.showComponent("showCreateParticipantForm")}>Create Participant</button>
-                <button onClick={() => this.showComponent("showRegisterParticipantForm")}>Register Participant</button>
-                <button onClick={() => this.showComponent("showEventsTable")}>Show All Event</button>
-                <button onClick={() => this.showComponent("showParticipantsTable")}>Show All Participants</button>
-            </div>
-            <div>
-                {showCreateEventForm && <CreateEventForm/>}
-                {showCreateParticipantForm && <CreateParticipantForm/>}
-                {showRegisterParticipantForm && <RegisterParticipantForm/>}
-                {showEventsTable && <EventsTable/>}
-                {showParticipantsTable && <ParticipantsTable/>}
-            </div>
-            </>
+        return (
+            <Container maxWidth={'100%'} height={'100%'} display={'flex'} justifyContent={'center'} mt={8}>
+                <Stack display={'flex'} justifyContent={'center'}>
+                    <HStack display={'flex'} justifyContent={'center'}>
+                        <Button onClick={() => this.showComponent("showCreateEventForm")}>Create Event</Button>
+                        <Button onClick={() => this.showComponent("showCreateParticipantForm")}>Create Participant</Button>
+                        <Button onClick={() => this.showComponent("showRegisterParticipantForm")}>Register Participant</Button>
+                        <Button onClick={() => this.showComponent("showEventsTable")}>Show All Event</Button>
+                        <Button onClick={() => this.showComponent("showParticipantsTable")}>Show All Participants</Button>
+                    </HStack>
+                    <Flex>
+                        {showCreateEventForm && <CreateEventForm />}
+                        {showCreateParticipantForm && <CreateParticipantForm />}
+                        {showRegisterParticipantForm && <RegisterParticipantForm />}
+                        {showEventsTable && <EventsTable />}
+                        {showParticipantsTable && <ParticipantsTable />}
+                    </Flex>
+                </Stack>
+            </Container>
         )
     }
 } export default Page

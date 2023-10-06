@@ -40,7 +40,7 @@ class CreateEventForm extends Component {
         const isDescriptionError = descriptionInput === '' | descriptionInput.length > 600
         const isEmailError = emailInput === '' | !emailRegex.test(emailInput)
 
-        const submitDisabled = false//isDateError | isTimeError | isTitleError | isDescriptionError | isEmailError
+        const submitDisabled = isDateError | isTimeError | isTitleError | isDescriptionError | isEmailError
 
         const handleSubmit = () => {
             let data = {

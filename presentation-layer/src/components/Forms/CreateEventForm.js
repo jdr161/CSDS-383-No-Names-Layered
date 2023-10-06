@@ -5,6 +5,7 @@ import {
     FormErrorMessage,
     Input,
     Button,
+    Heading,
 } from '@chakra-ui/react'
 import moment from 'moment'
 import axios from 'axios'
@@ -66,6 +67,7 @@ class CreateEventForm extends Component {
         return (
             <>
             <div>
+                <Heading>Create Event</Heading>
                 <FormControl>
                     <FormLabel>UUID</FormLabel>
                     <Input type='text' value={uuidInput} onChange={handleUuidChange} placeholder="Set a UUID for the event, or leave blank for an auto-generated one..." />

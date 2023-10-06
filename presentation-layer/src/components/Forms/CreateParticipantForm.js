@@ -5,6 +5,7 @@ import {
     FormErrorMessage,
     Input,
     Button,
+    Heading,
 } from '@chakra-ui/react'
 import axios from 'axios'
 
@@ -53,6 +54,7 @@ class CreateParticipantForm extends Component {
         return (
             <>
             <div>
+                <Heading>Create Participant</Heading>
                 <FormControl>
                     <FormLabel>UUID</FormLabel>
                     <Input type='text' value={uuidInput} onChange={handleUuidChange} placeholder="Set a UUID for the particpant, or leave blank for an auto-generated one..." />

@@ -5,6 +5,7 @@ import {
     FormErrorMessage,
     Input,
     Button,
+    Heading,
 } from '@chakra-ui/react'
 import axios from 'axios'
 
@@ -48,6 +49,7 @@ class RegisterParticipantForm extends Component {
         return (
             <>
             <div>
+                <Heading>Register Participant</Heading>
                 <FormControl isInvalid={isEventError}>
                     <FormLabel>Event UUID</FormLabel>
                     <Input type='text' value={eventInput} onChange={handleEventChange} placeholder="" />

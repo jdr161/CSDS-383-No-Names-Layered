@@ -5,7 +5,7 @@ import CreateParticipantForm from './Forms/CreateParticipantForm'
 import RegisterParticipantForm from './Forms/RegisterParticipantForm'
 import EventsTable from './Tables/EventsTable'
 import ParticipantsTable from './Tables/ParticipantsTable'
-import { Container, Stack, HStack, Button, Flex } from "@chakra-ui/react"
+import { Container, Stack, HStack, Button } from "@chakra-ui/react"
 
 
 class Page extends Component {
@@ -64,7 +64,7 @@ class Page extends Component {
         const { showCreateEventForm, showCreateParticipantForm, showRegisterParticipantForm, showEventsTable, showParticipantsTable } = this.state
         return (
             <Container maxWidth={'100%'} height={'100%'} display={'flex'} justifyContent={'center'} mt={8}>
-                <Stack display={'flex'} justifyContent={'center'}>
+                <Stack display={'flex'} maxHeight={'100%'} justifyContent={'center'}>
                     <HStack display={'flex'} justifyContent={'center'}>
                         <Button onClick={() => this.showComponent("showCreateEventForm")}>Create Event</Button>
                         <Button onClick={() => this.showComponent("showCreateParticipantForm")}>Create Participant</Button>
@@ -72,15 +72,13 @@ class Page extends Component {
                         <Button onClick={() => this.showComponent("showEventsTable")}>Show All Event</Button>
                         <Button onClick={() => this.showComponent("showParticipantsTable")}>Show All Participants</Button>
                     </HStack>
-                    <Flex>
-                        <Stack>
-                            {showEventsTable && <EventsTable />}
-                            {showParticipantsTable && <ParticipantsTable />}
-                            {showCreateEventForm && <CreateEventForm />}
-                            {showCreateParticipantForm && <CreateParticipantForm />}
-                            {showRegisterParticipantForm && <RegisterParticipantForm />}
-                        </Stack>
-                    </Flex>
+                    <Stack maxHeight={'100%'} p={4}>
+                        {showEventsTable && <EventsTable />}
+                        {showParticipantsTable && <ParticipantsTable />}
+                        {showCreateEventForm && <CreateEventForm />}
+                        {showCreateParticipantForm && <CreateParticipantForm />}
+                        {showRegisterParticipantForm && <RegisterParticipantForm />}
+                    </Stack>
                 </Stack>
             </Container>
         )

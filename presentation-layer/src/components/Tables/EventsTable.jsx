@@ -1,4 +1,4 @@
-import { Table, Thead, Tbody, TableContainer, Tr, Th, Td, UnorderedList, ListItem } from "@chakra-ui/react"
+import { Table, Thead, Tbody, TableContainer, Tr, Th, Td, UnorderedList, ListItem, Heading } from "@chakra-ui/react"
 import React, { Component } from "react"
 import { events } from "../../example-data/events"
 
@@ -12,9 +12,10 @@ class EventsTable extends Component {
 
     render() {
         return (
-            <TableContainer>
+            <TableContainer maxHeight={'50vh'} overflowY={'auto'}>
+                <Heading>Events</Heading>
                 <Table variant={'simple'}>
-                    <Thead>
+                    <Thead position={'sticky'} top={'0'} bgColor={'gray.100'}>
                         <Tr>
                             <Th>ID</Th>
                             <Th>Date</Th>

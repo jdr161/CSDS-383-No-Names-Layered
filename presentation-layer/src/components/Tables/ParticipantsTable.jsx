@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { Table, Thead, Tbody, TableContainer, Tr, Th, Td } from "@chakra-ui/react"
+import { Table, Thead, Tbody, TableContainer, Tr, Th, Td, Heading } from "@chakra-ui/react"
 import { participants } from "../../example-data/participants"
 
 class ParticipantsTable extends Component {
@@ -12,9 +12,10 @@ class ParticipantsTable extends Component {
 
     render() {
         return (
-            <TableContainer>
+            <TableContainer maxHeight={'50vh'} overflowY={'auto'}>
+                <Heading>Participants</Heading>
                 <Table variant={'simple'}>
-                    <Thead>
+                    <Thead position={'sticky'} top={'0'} bgColor={'gray.100'}>
                         <Tr>
                             <Th>ID</Th>
                             <Th>Name</Th>

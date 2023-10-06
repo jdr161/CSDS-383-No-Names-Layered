@@ -1,5 +1,4 @@
 import React, { Component } from "react"
-import { Button, ButtonGroup } from "@chakra-ui/react"
 
 import CreateEventForm from './Forms/CreateEventForm'
 import CreateParticipantForm from './Forms/CreateParticipantForm'

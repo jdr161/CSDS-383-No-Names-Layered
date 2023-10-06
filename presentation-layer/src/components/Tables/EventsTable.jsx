@@ -11,7 +11,6 @@ class EventsTable extends Component {
     }
 
     render() {
-        console.log(events)
         return (
             <TableContainer>
                 <Table variant={'simple'}>
@@ -27,7 +26,7 @@ class EventsTable extends Component {
                         </Tr>
                     </Thead>
                     <Tbody>
-                        {events.map((event => {
+                        {this.state.events.map((event => {
                             return (
                                 <Tr>
                                     <Td>{event.id}</Td>

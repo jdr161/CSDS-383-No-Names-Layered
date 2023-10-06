@@ -4,7 +4,10 @@ import {
     FormLabel,
     FormErrorMessage,
     Input,
+    Button,
 } from '@chakra-ui/react'
+import moment from 'moment'
+import axios from 'axios'
 
 class CreateEventForm extends Component {
     constructor() {
@@ -37,52 +40,78 @@ class CreateEventForm extends Component {
         const isDescriptionError = descriptionInput === '' | descriptionInput.length > 600
         const isEmailError = emailInput === '' | !emailRegex.test(emailInput)
 
+        const submitDisabled = false//isDateError | isTimeError | isTitleError | isDescriptionError | isEmailError
+
+        const handleSubmit = () => {
+            let data = {
+                uuid: uuidInput,
+                date: dateInput, //input with type 'date' is already in form "YYYY-MM-DD"
+                time: moment(timeInput, 'HH:mm').format('hh:mm a'),
+                title: titleInput,
+                description: descriptionInput,
+                email: emailInput,
+            }
+            let apiURL = ''
+            axios.post(apiURL, data)
+              .then(function (response) {
+                //TODO: IMPLEMENT API RESPONSE
+                console.log(response);
+              })
+              .catch(function (error) {
+                //TODO: IMPLEMENT API ERROR RESPONSE
+                console.log(error);
+              });
+        }
+
         return (
             <>
-            <FormControl>
-                <FormLabel>UUID</FormLabel>
-                <Input type='text' value={uuidInput} onChange={handleUuidChange} placeholder="Set a UUID for the event, or leave blank for an auto-generated one..." />
-            </FormControl>
+            <div>
+                <FormControl>
+                    <FormLabel>UUID</FormLabel>
+                    <Input type='text' value={uuidInput} onChange={handleUuidChange} placeholder="Set a UUID for the event, or leave blank for an auto-generated one..." />
+                </FormControl>
 
-            <FormControl isInvalid={isDateError}>
-                <FormLabel>Date</FormLabel>
-                <Input type='date' value={dateInput} onChange={handleDateChange} placeholder="Set a date for the event..." />
-                {!isDateError &&
-                    <FormErrorMessage>Date is required.</FormErrorMessage>
-                }
-            </FormControl>
+                <FormControl isInvalid={isDateError}>
+                    <FormLabel>Date</FormLabel>
+                    <Input type='date' value={dateInput} onChange={handleDateChange} placeholder="Set a date for the event..." />
+                    {!isDateError &&
+                        <FormErrorMessage>Date is required.</FormErrorMessage>
+                    }
+                </FormControl>
 
-            <FormControl isInvalid={isTimeError}>
-                <FormLabel>Time</FormLabel>
-                <Input type='time' value={timeInput} onChange={handleTimeChange} placeholder="Set a time for the event..." />
-                {!isTimeError &&
-                    <FormErrorMessage>Email is required.</FormErrorMessage>
-                }
-            </FormControl>
+                <FormControl isInvalid={isTimeError}>
+                    <FormLabel>Time</FormLabel>
+                    <Input type='time' value={timeInput} onChange={handleTimeChange} placeholder="Set a time for the event..." />
+                    {!isTimeError &&
+                        <FormErrorMessage>Email is required.</FormErrorMessage>
+                    }
+                </FormControl>
 
-            <FormControl isInvalid={isTitleError}>
-                <FormLabel>Title</FormLabel>
-                <Input type='text' value={titleInput} onChange={handleTitleChange} placeholder="Set the title for the event..." />
-                {!isTitleError &&
-                    <FormErrorMessage>Title should be between 1 and 255 characters, inclusive. Try again</FormErrorMessage>
-                }
-            </FormControl>
-            
-            <FormControl isInvalid={isDescriptionError}>
-                <FormLabel>Description</FormLabel>
-                <Input type='text' value={descriptionInput} onChange={handleDescriptionChange} placeholder="Set the description for the event..." />
-                {!isDescriptionError &&
-                    <FormErrorMessage>Description should be between 1 and 600 characters, inclusive. Try again</FormErrorMessage>
-                }
-            </FormControl>
+                <FormControl isInvalid={isTitleError}>
+                    <FormLabel>Title</FormLabel>
+                    <Input type='text' value={titleInput} onChange={handleTitleChange} placeholder="Set the title for the event..." />
+                    {!isTitleError &&
+                        <FormErrorMessage>Title should be between 1 and 255 characters, inclusive. Try again</FormErrorMessage>
+                    }
+                </FormControl>
+                
+                <FormControl isInvalid={isDescriptionError}>
+                    <FormLabel>Description</FormLabel>
+                    <Input type='text' value={descriptionInput} onChange={handleDescriptionChange} placeholder="Set the description for the event..." />
+                    {!isDescriptionError &&
+                        <FormErrorMessage>Description should be between 1 and 600 characters, inclusive. Try again</FormErrorMessage>
+                    }
+                </FormControl>
 
-            <FormControl isInvalid={isEmailError}>
-                <FormLabel>Host Email</FormLabel>
-                <Input type='email' value={emailInput} onChange={handleEmailInput} placeholder="Enter the email of the event host..." />
-                {!isEmailError &&
-                    <FormErrorMessage>Invalid email. Try again</FormErrorMessage>
-                }
-            </FormControl>
+                <FormControl isInvalid={isEmailError}>
+                    <FormLabel>Host Email</FormLabel>
+                    <Input type='email' value={emailInput} onChange={handleEmailInput} placeholder="Enter the email of the event host..." />
+                    {!isEmailError &&
+                        <FormErrorMessage>Invalid email. Try again</FormErrorMessage>
+                    }
+                </FormControl>
+                <Button onClick={handleSubmit} isDisabled={submitDisabled}>Submit</Button>
+            </div>
             </>
         )
     }

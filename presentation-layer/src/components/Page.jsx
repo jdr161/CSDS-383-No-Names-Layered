@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import { Button, ButtonGroup } from "@chakra-ui/react"
 
 import CreateEventForm from './Forms/CreateEventForm'
 import CreateParticipantForm from './Forms/CreateParticipantForm'
@@ -27,8 +28,6 @@ class Page extends Component {
                     showCreateEventForm: true,
                     showCreateParticipantForm: false,
                     showRegisterParticipantForm: false,
-                    showEventsTable: false,
-                    showParticipantsTable: false
                 })
                 break
             case "showCreateParticipantForm":
@@ -36,8 +35,6 @@ class Page extends Component {
                     showCreateEventForm: false,
                     showCreateParticipantForm: true,
                     showRegisterParticipantForm: false,
-                    showEventsTable: false,
-                    showParticipantsTable: false
                 })
                 break
             case "showRegisterParticipantForm":
@@ -45,24 +42,16 @@ class Page extends Component {
                     showCreateEventForm: false,
                     showCreateParticipantForm: false,
                     showRegisterParticipantForm: true,
-                    showEventsTable: false,
-                    showParticipantsTable: false
                 })
                 break
             case "showEventsTable":
                 this.setState({
-                    showCreateEventForm: false,
-                    showCreateParticipantForm: false,
-                    showRegisterParticipantForm: false,
                     showEventsTable: true,
                     showParticipantsTable: false
                 })
                 break
             case "showParticipantsTable":
                 this.setState({
-                    showCreateEventForm: false,
-                    showCreateParticipantForm: false,
-                    showRegisterParticipantForm: false,
                     showEventsTable: false,
                     showParticipantsTable: true
                 })
@@ -85,11 +74,13 @@ class Page extends Component {
                         <Button onClick={() => this.showComponent("showParticipantsTable")}>Show All Participants</Button>
                     </HStack>
                     <Flex>
-                        {showCreateEventForm && <CreateEventForm />}
-                        {showCreateParticipantForm && <CreateParticipantForm />}
-                        {showRegisterParticipantForm && <RegisterParticipantForm />}
-                        {showEventsTable && <EventsTable />}
-                        {showParticipantsTable && <ParticipantsTable />}
+                        <Stack>
+                            {showEventsTable && <EventsTable />}
+                            {showParticipantsTable && <ParticipantsTable />}
+                            {showCreateEventForm && <CreateEventForm />}
+                            {showCreateParticipantForm && <CreateParticipantForm />}
+                            {showRegisterParticipantForm && <RegisterParticipantForm />}
+                        </Stack>
                     </Flex>
                 </Stack>
             </Container>

@@ -30,6 +30,12 @@ public class Controller {
         return ResponseEntity.ok(createdEvent);
     }
 
+    @GetMapping("/view-participants")
+    public ResponseEntity<List<Participant>> getAllParticipants() {
+        List<Participant> participants = participantRepository.findAll();
+        return ResponseEntity.ok(participants);
+    }
+
     @PostMapping("/create-participant")
     public ResponseEntity<Participant> addParticipant(@RequestBody Participant participant) {
         Participant createdParticipant = participantRepository.save(participant);

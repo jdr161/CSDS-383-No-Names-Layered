@@ -1,6 +1,5 @@
 package com.nonames.layered;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.Set;
@@ -27,7 +26,6 @@ public class Event {
     @Column(name = "host_email")
     private String hostEmail;
 
-    @JsonIgnore
     @ManyToMany
     @JoinTable(
         name = "participants_in_events",

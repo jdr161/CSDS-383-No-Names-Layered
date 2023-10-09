@@ -1,12 +1,24 @@
 import { Table, Thead, Tbody, TableContainer, Tr, Th, Td, UnorderedList, ListItem, Heading } from "@chakra-ui/react"
 import React, { Component } from "react"
-import { events } from "../../example-data/events"
+// import { events } from "../../example-data/events"
+import eventService from "../../services/eventService"
 
 class EventsTable extends Component {
     constructor() {
         super()
         this.state = {
-            events: events
+            events: []
+        }
+    }
+
+    async componentDidMount() {
+        try {
+            const eventsResponse = await eventService.getAllEvents()
+            this.setState({
+                events: eventsResponse
+            })
+        } catch (error) {
+            console.error("Failed to get all events")
         }
     }
 
@@ -56,4 +68,6 @@ class EventsTable extends Component {
             </TableContainer>
         )
     }
-} export default EventsTable
+} 
+
+export default EventsTable

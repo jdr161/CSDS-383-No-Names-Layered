@@ -1,12 +1,24 @@
 import React, { Component } from "react"
 import { Table, Thead, Tbody, TableContainer, Tr, Th, Td, Heading } from "@chakra-ui/react"
-import { participants } from "../../example-data/participants"
+// import { participants } from "../../example-data/participants"
+import participantService from "../../services/participantService"
 
 class ParticipantsTable extends Component {
     constructor() {
         super()
         this.state = {
-            participants: participants
+            participants: []
+        }
+    }
+
+    async componentDidMount() {
+        try {
+            const participantsResponse = await participantService.getAllParticipants()
+            this.setState({
+                participants: participantsResponse
+            })
+        } catch (error) {
+            console.error("Failed to get all events")
         }
     }
 

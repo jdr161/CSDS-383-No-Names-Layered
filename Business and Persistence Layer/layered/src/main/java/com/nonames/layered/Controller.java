@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import static org.springframework.http.HttpStatus.CONFLICT;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @RestController
@@ -26,9 +27,12 @@ public class Controller {
         return ResponseEntity.ok(events);
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/create-event")
     public ResponseEntity<Event> addEvent(@RequestBody Event event) {
-        System.out.println(event);
+        if (eventRepository.existsById(event.getId()))
+            throw new ResponseStatusException(CONFLICT, "Event UUID already exists");
+
         Event createdEvent = eventRepository.save(event);
         return ResponseEntity.ok(createdEvent);
     }
@@ -39,12 +43,17 @@ public class Controller {
         return ResponseEntity.ok(participants);
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/create-participant")
     public ResponseEntity<Participant> addParticipant(@RequestBody Participant participant) {
+        if (participantRepository.existsById(participant.getId()))
+            throw new ResponseStatusException(CONFLICT, "Participant UUID already exists");
+
         Participant createdParticipant = participantRepository.save(participant);
         return ResponseEntity.ok(createdParticipant);
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @PutMapping("/register-participant")
     public ResponseEntity<Event> registerParticipant(@RequestParam UUID participantId, @RequestParam UUID eventId) {
         Optional<Event> event = eventRepository.findById(eventId);

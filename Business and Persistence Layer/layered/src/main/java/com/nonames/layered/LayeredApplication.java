@@ -9,5 +9,4 @@ public class LayeredApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(LayeredApplication.class, args);
 	}
-
 }

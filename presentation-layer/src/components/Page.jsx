@@ -64,7 +64,7 @@ class Page extends Component {
         const { showCreateEventForm, showCreateParticipantForm, showRegisterParticipantForm, showEventsTable, showParticipantsTable } = this.state
         return (
             <Container maxWidth={'100%'} height={'100%'} display={'flex'} justifyContent={'center'} mt={8}>
-                <Stack display={'flex'} maxHeight={'100%'} justifyContent={'center'}>
+                <Stack display={'flex'} maxHeight={'100%'} maxWidth={'100%'} justifyContent={'center'} p={8}>
                     <HStack display={'flex'} justifyContent={'center'}>
                         <Button onClick={() => this.showComponent("showCreateEventForm")}>Create Event</Button>
                         <Button onClick={() => this.showComponent("showCreateParticipantForm")}>Create Participant</Button>

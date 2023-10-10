@@ -24,7 +24,7 @@ class EventsTable extends Component {
 
     render() {
         return (
-            <TableContainer maxHeight={'50vh'} overflowY={'auto'}>
+            <TableContainer maxHeight={'50vh'} overflowY={'auto'} overflowX={'auto'}>
                 <Heading>Events</Heading>
                 <Table variant={'simple'}>
                     <Thead position={'sticky'} top={'0'} bgColor={'gray.100'}>

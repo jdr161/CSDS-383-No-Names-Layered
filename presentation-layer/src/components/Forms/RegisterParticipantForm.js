@@ -31,12 +31,8 @@ class RegisterParticipantForm extends Component {
         const submitDisabled = Boolean(isEventError | isParticipantError)
 
         const handleSubmit = () => {
-            let data = {
-                event: eventInput,
-                Participant: participantInput,
-            }
-            let apiURL = '/api/register-participant'
-            axios.post(apiURL, data)
+            let apiURL = `/api/register-participant?participantId=${participantInput}&eventId=${eventInput}`
+            axios.put(apiURL)
               .then(function (response) {
                 this.setState({
                     eventInput: '',
@@ -45,6 +41,7 @@ class RegisterParticipantForm extends Component {
                 toast.success("Participant registered successfully")
               })
               .catch(function (error) {
+                console.log(error)
                 toast.error(error.response.data.message)
               });
         }

@@ -35,11 +35,11 @@ class CreateParticipantForm extends Component {
 
         const handleSubmit = () => {
             let data = {
-                id: uuidInput,
+                uuid: uuidInput,
                 name: nameInput,
                 email: emailInput,
             }
-            let apiURL = "http://localhost:8080/api/create-participant"
+            let apiURL = ''
             axios.post(apiURL, data)
               .then(function (response) {
                 //TODO: IMPLEMENT API RESPONSE

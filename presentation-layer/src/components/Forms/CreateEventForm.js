@@ -45,14 +45,14 @@ class CreateEventForm extends Component {
 
         const handleSubmit = () => {
             let data = {
-                id: uuidInput,
+                uuid: uuidInput,
                 date: dateInput, //input with type 'date' is already in form "YYYY-MM-DD"
                 time: moment(timeInput, 'HH:mm').format('hh:mm a'),
                 title: titleInput,
                 description: descriptionInput,
                 email: emailInput,
             }
-            let apiURL = "http://localhost:8080/api/create-event"
+            let apiURL = ''
             axios.post(apiURL, data)
               .then(function (response) {
                 //TODO: IMPLEMENT API RESPONSE

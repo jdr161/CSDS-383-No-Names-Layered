@@ -34,7 +34,7 @@ class RegisterParticipantForm extends Component {
                 event: eventInput,
                 Participant: participantInput,
             }
-            let apiURL = "http://localhost:8080/api/register-participant"
+            let apiURL = ''
             axios.post(apiURL, data)
               .then(function (response) {
                 //TODO: IMPLEMENT API RESPONSE

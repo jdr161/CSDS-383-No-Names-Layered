@@ -56,7 +56,7 @@ class CreateParticipantForm extends Component {
                 toast.success("Participant created successfully.")
               })
               .catch(function (error) {
-                toast.error(error.message)
+                toast.error(error.response.data.message)
             });
         }
 

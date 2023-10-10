@@ -71,7 +71,7 @@ class CreateEventForm extends Component {
                 toast.success("Event created successfully.")
               })
             .catch(function (error) {
-                toast.error(error.message)
+                toast.error(error.response.data.message)
             });
         }
 

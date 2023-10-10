@@ -45,7 +45,7 @@ class RegisterParticipantForm extends Component {
                 toast.success("Participant registered successfully")
               })
               .catch(function (error) {
-                toast.error(error.message)
+                toast.error(error.response.data.message)
               });
         }
 

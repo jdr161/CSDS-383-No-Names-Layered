@@ -34,7 +34,7 @@ class CreateParticipantForm extends Component {
         const isNameError = Boolean(nameInput === '' | nameInput.length > 600)
         const isEmailError = Boolean(emailInput === '' | !emailRegex.test(emailInput))
 
-        const submitDisabled = isNameError | isEmailError
+        const submitDisabled = Boolean(isNameError | isEmailError)
 
         const handleSubmit = () => {
             let data = {

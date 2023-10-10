@@ -28,7 +28,7 @@ class RegisterParticipantForm extends Component {
         const isEventError = eventInput === ''
         const isParticipantError = participantInput === ''
 
-        const submitDisabled = isEventError | isParticipantError
+        const submitDisabled = Boolean(isEventError | isParticipantError)
 
         const handleSubmit = () => {
             let data = {

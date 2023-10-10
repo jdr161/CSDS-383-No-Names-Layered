@@ -37,11 +37,11 @@ class CreateEventForm extends Component {
 
         const isDateError = dateInput === ''
         const isTimeError = timeInput === ''
-        const isTitleError = titleInput === '' | titleInput.length > 255
-        const isDescriptionError = descriptionInput === '' | descriptionInput.length > 600
-        const isEmailError = emailInput === '' | !emailRegex.test(emailInput)
+        const isTitleError = Boolean(titleInput === '' | titleInput.length > 255)
+        const isDescriptionError = Boolean(descriptionInput === '' | descriptionInput.length > 600)
+        const isEmailError = Boolean(emailInput === '' | !emailRegex.test(emailInput))
 
-        const submitDisabled = isDateError | isTimeError | isTitleError | isDescriptionError | isEmailError
+        const submitDisabled = Boolean(isDateError | isTimeError | isTitleError | isDescriptionError | isEmailError)
 
         const handleSubmit = () => {
             let data = {
@@ -85,7 +85,7 @@ class CreateEventForm extends Component {
                     <FormLabel>Time</FormLabel>
                     <Input type='time' value={timeInput} onChange={handleTimeChange} placeholder="Set a time for the event..." />
                     {isTimeError &&
-                        <FormErrorMessage>Email is required.</FormErrorMessage>
+                        <FormErrorMessage>Time is required.</FormErrorMessage>
                     }
                 </FormControl>
 

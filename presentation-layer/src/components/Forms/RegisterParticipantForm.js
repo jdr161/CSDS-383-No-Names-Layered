@@ -17,13 +17,18 @@ class RegisterParticipantForm extends Component {
             eventInput: '',
             participantInput: '',
         }
+        this.resetState = this.resetState.bind(this)
     }
 
+    handleEventChange = (e) => this.setState({ eventInput: e.target.value})
+    handleParticipantChange = (e) => this.setState({ participantInput: e.target.value})
+    resetState = () => this.setState({
+        eventInput: '',
+        participantInput: '',
+    })
 
     render() {
         const { eventInput, participantInput } = this.state
-        const handleEventChange = (e) => this.setState({ eventInput: e.target.value})
-        const handleParticipantChange = (e) => this.setState({ participantInput: e.target.value})
 
         const isEventError = eventInput === ''
         const isParticipantError = participantInput === ''
@@ -31,20 +36,14 @@ class RegisterParticipantForm extends Component {
         const submitDisabled = Boolean(isEventError | isParticipantError)
 
         const handleSubmit = () => {
-            let data = {
-                event: eventInput,
-                Participant: participantInput,
-            }
-            let apiURL = '/api/register-participant'
-            axios.post(apiURL, data)
-              .then(function (response) {
-                this.setState({
-                    eventInput: '',
-                    participantInput: '',
-                })
+            let apiURL = `/api/register-participant?participantId=${participantInput}&eventId=${eventInput}`
+            axios.put(apiURL)
+              .then(response => {
+                this.resetState()
                 toast.success("Participant registered successfully")
               })
               .catch(function (error) {
+                console.log(error)
                 toast.error(error.response.data.message)
               });
         }
@@ -59,7 +58,7 @@ class RegisterParticipantForm extends Component {
                 <Heading>Register Participant</Heading>
                 <FormControl isInvalid={isEventError}>
                     <FormLabel>Event UUID</FormLabel>
-                    <Input type='text' value={eventInput} onChange={handleEventChange} placeholder="" />
+                    <Input type='text' value={eventInput} onChange={this.handleEventChange} placeholder="" />
                     {isEventError &&
                         <FormErrorMessage>Event UUID is required</FormErrorMessage>
                     }
@@ -67,7 +66,7 @@ class RegisterParticipantForm extends Component {
                 
                 <FormControl isInvalid={isParticipantError}>
                     <FormLabel>Participant UUID</FormLabel>
-                    <Input type='text' value={participantInput} onChange={handleParticipantChange} placeholder="" />
+                    <Input type='text' value={participantInput} onChange={this.handleParticipantChange} placeholder="" />
                     {isParticipantError &&
                         <FormErrorMessage>Participant UUID is required</FormErrorMessage>
                     }

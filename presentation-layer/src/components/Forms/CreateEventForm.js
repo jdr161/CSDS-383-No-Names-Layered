@@ -24,18 +24,27 @@ class CreateEventForm extends Component {
             descriptionInput: '',
             emailInput: '',
         }
+        this.resetState = this.resetState.bind(this)
     }
+    handleUuidChange = (e) => this.setState({ uuidInput: e.target.value})
+    handleDateChange = (e) => this.setState({ dateInput: e.target.value})
+    handleTimeChange = (e) => this.setState({ timeInput: e.target.value})
+    handleTitleChange = (e) => this.setState({ titleInput: e.target.value})
+    handleDescriptionChange = (e) => this.setState({ descriptionInput: e.target.value})
+    handleEmailInput = (e) => this.setState({ emailInput: e.target.value})
+    resetState = () => this.setState({
+        uuidInput: '',
+        dateInput: '',
+        timeInput: '',
+        titleInput: '',
+        descriptionInput: '',
+        emailInput: '',
+    })
 
     render() {
         const emailRegex = new RegExp('^(?=.{1,64}@)[A-Za-z0-9_-]+(\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*(\.[A-Za-z]{2,})$')
 
         const { uuidInput, dateInput, timeInput, titleInput, descriptionInput, emailInput } = this.state
-        const handleUuidChange = (e) => this.setState({ uuidInput: e.target.value})
-        const handleDateChange = (e) => this.setState({ dateInput: e.target.value})
-        const handleTimeChange = (e) => this.setState({ timeInput: e.target.value})
-        const handleTitleChange = (e) => this.setState({ titleInput: e.target.value})
-        const handleDescriptionChange = (e) => this.setState({ descriptionInput: e.target.value})
-        const handleEmailInput = (e) => this.setState({ emailInput: e.target.value})
 
         const isDateError = Boolean(dateInput === '')
         const isTimeError = Boolean(timeInput === '')
@@ -59,18 +68,12 @@ class CreateEventForm extends Component {
             }
             let apiURL = '/api/create-event'
             axios.post(apiURL, data)
-            .then(function (response) {
-                this.setState({
-                    uuidInput: '',
-                    dateInput: '',
-                    timeInput: '',
-                    titleInput: '',
-                    descriptionInput: '',
-                    emailInput: '',
-                })
+            .then(response => {
+                this.resetState()
                 toast.success("Event created successfully.")
               })
             .catch(function (error) {
+                console.log(error)
                 toast.error(error.response.data.message)
             });
         }
@@ -85,12 +88,12 @@ class CreateEventForm extends Component {
                 <Heading>Create Event</Heading>
                 <FormControl>
                     <FormLabel>UUID</FormLabel>
-                    <Input type='text' value={uuidInput} onChange={handleUuidChange} placeholder="Set a UUID for the event, or leave blank for an auto-generated one..." />
+                    <Input type='text' value={uuidInput} onChange={this.handleUuidChange} placeholder="Set a UUID for the event, or leave blank for an auto-generated one..." />
                 </FormControl>
 
                 <FormControl isInvalid={isDateError}>
                     <FormLabel>Date</FormLabel>
-                    <Input type='date' value={dateInput} onChange={handleDateChange} placeholder="Set a date for the event..." />
+                    <Input type='date' value={dateInput} onChange={this.handleDateChange} placeholder="Set a date for the event..." />
                     {isDateError &&
                         <FormErrorMessage>Date is required.</FormErrorMessage>
                     }
@@ -98,7 +101,7 @@ class CreateEventForm extends Component {
 
                 <FormControl isInvalid={isTimeError}>
                     <FormLabel>Time</FormLabel>
-                    <Input type='time' value={timeInput} onChange={handleTimeChange} placeholder="Set a time for the event..." />
+                    <Input type='time' value={timeInput} onChange={this.handleTimeChange} placeholder="Set a time for the event..." />
                     {isTimeError &&
                         <FormErrorMessage>Time is required.</FormErrorMessage>
                     }
@@ -106,7 +109,7 @@ class CreateEventForm extends Component {
 
                 <FormControl isInvalid={isTitleError}>
                     <FormLabel>Title</FormLabel>
-                    <Input type='text' value={titleInput} onChange={handleTitleChange} placeholder="Set the title for the event..." />
+                    <Input type='text' value={titleInput} onChange={this.handleTitleChange} placeholder="Set the title for the event..." />
                     {isTitleError &&
                         <FormErrorMessage>Title should be between 1 and 255 characters, inclusive.</FormErrorMessage>
                     }
@@ -114,7 +117,7 @@ class CreateEventForm extends Component {
                 
                 <FormControl isInvalid={isDescriptionError}>
                     <FormLabel>Description</FormLabel>
-                    <Input type='text' value={descriptionInput} onChange={handleDescriptionChange} placeholder="Set the description for the event..." />
+                    <Input type='text' value={descriptionInput} onChange={this.handleDescriptionChange} placeholder="Set the description for the event..." />
                     {isDescriptionError &&
                         <FormErrorMessage>Description should be between 1 and 600 characters, inclusive.</FormErrorMessage>
                     }
@@ -122,7 +125,7 @@ class CreateEventForm extends Component {
 
                 <FormControl isInvalid={isEmailError}>
                     <FormLabel>Host Email</FormLabel>
-                    <Input type='email' value={emailInput} onChange={handleEmailInput} placeholder="Enter the email of the event host..." />
+                    <Input type='email' value={emailInput} onChange={this.handleEmailInput} placeholder="Enter the email of the event host..." />
                     {isEmailError &&
                         <FormErrorMessage>Invalid email.</FormErrorMessage>
                     }

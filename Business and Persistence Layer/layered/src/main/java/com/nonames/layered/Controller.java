@@ -23,7 +23,7 @@ public class Controller {
         return ResponseEntity.ok(events);
     }
 
-    @PostMapping("/create-event")
+    @PostMapping("/create-event") // check if it exists
     public ResponseEntity<Event> addEvent(@RequestBody Event event) {
         System.out.println(event);
         Event createdEvent = eventRepository.save(event);
@@ -36,7 +36,7 @@ public class Controller {
         return ResponseEntity.ok(participants);
     }
 
-    @PostMapping("/create-participant")
+    @PostMapping("/create-participant") // check if exists
     public ResponseEntity<Participant> addParticipant(@RequestBody Participant participant) {
         Participant createdParticipant = participantRepository.save(participant);
         return ResponseEntity.ok(createdParticipant);
@@ -48,6 +48,7 @@ public class Controller {
         Optional<Event> event = eventRepository.findById(eventId);
 
         // todo optional validation & refactor
+        // check event stuff - name, date, etc
 
         event.get().getParticipants().add(participant.get());
         eventRepository.save(event.get());

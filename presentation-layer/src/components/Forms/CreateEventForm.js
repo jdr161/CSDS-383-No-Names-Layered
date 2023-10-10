@@ -10,8 +10,10 @@ import {
 import moment from 'moment'
 import axios from 'axios'
 import { v4 as uuidv4 } from 'uuid'
+import toast, { Toaster } from 'react-hot-toast'
 
 class CreateEventForm extends Component {
+
     constructor() {
         super()
         this.state = {
@@ -24,8 +26,9 @@ class CreateEventForm extends Component {
         }
     }
 
-
     render() {
+        const emailRegex = new RegExp('^(?=.{1,64}@)[A-Za-z0-9_-]+(\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*(\.[A-Za-z]{2,})$')
+
         const { uuidInput, dateInput, timeInput, titleInput, descriptionInput, emailInput } = this.state
         const handleUuidChange = (e) => this.setState({ uuidInput: e.target.value})
         const handleDateChange = (e) => this.setState({ dateInput: e.target.value})
@@ -33,8 +36,6 @@ class CreateEventForm extends Component {
         const handleTitleChange = (e) => this.setState({ titleInput: e.target.value})
         const handleDescriptionChange = (e) => this.setState({ descriptionInput: e.target.value})
         const handleEmailInput = (e) => this.setState({ emailInput: e.target.value})
-
-        const emailRegex = new RegExp('^(?=.{1,64}@)[A-Za-z0-9_-]+(\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*(\.[A-Za-z]{2,})$');
 
         const isDateError = Boolean(dateInput === '')
         const isTimeError = Boolean(timeInput === '')
@@ -58,18 +59,28 @@ class CreateEventForm extends Component {
             }
             let apiURL = '/api/create-event'
             axios.post(apiURL, data)
-              .then(function (response) {
-                //TODO: IMPLEMENT API RESPONSE
-                console.log(response);
+            .then(function (response) {
+                this.setState({
+                    uuidInput: '',
+                    dateInput: '',
+                    timeInput: '',
+                    titleInput: '',
+                    descriptionInput: '',
+                    emailInput: '',
+                })
+                toast.success("Event created successfully.")
               })
-              .catch(function (error) {
-                //TODO: IMPLEMENT API ERROR RESPONSE
-                console.log(error);
-              });
+            .catch(function (error) {
+                toast.error(error.message)
+            });
         }
 
         return (
             <>
+            <Toaster
+                position="bottom-right"
+                reverseOrder={false}
+            />
             <div>
                 <Heading>Create Event</Heading>
                 <FormControl>

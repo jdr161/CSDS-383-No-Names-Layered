@@ -8,6 +8,7 @@ import {
     Heading,
 } from '@chakra-ui/react'
 import axios from 'axios'
+import toast, { Toaster } from 'react-hot-toast'
 
 class RegisterParticipantForm extends Component {
     constructor() {
@@ -37,17 +38,23 @@ class RegisterParticipantForm extends Component {
             let apiURL = '/api/register-participant'
             axios.post(apiURL, data)
               .then(function (response) {
-                //TODO: IMPLEMENT API RESPONSE
-                console.log(response);
+                this.setState({
+                    eventInput: '',
+                    participantInput: '',
+                })
+                toast.success("Participant registered successfully")
               })
               .catch(function (error) {
-                //TODO: IMPLEMENT API ERROR RESPONSE
-                console.log(error);
+                toast.error(error.message)
               });
         }
 
         return (
             <>
+            <Toaster
+                position="bottom-right"
+                reverseOrder={false}
+            />
             <div>
                 <Heading>Register Participant</Heading>
                 <FormControl isInvalid={isEventError}>

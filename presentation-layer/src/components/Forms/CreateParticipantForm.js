@@ -9,6 +9,8 @@ import {
 } from '@chakra-ui/react'
 import axios from 'axios'
 import { v4 as uuidv4 } from 'uuid'
+import toast, { Toaster } from 'react-hot-toast'
+
 
 class CreateParticipantForm extends Component {
     constructor() {
@@ -46,17 +48,24 @@ class CreateParticipantForm extends Component {
             let apiURL = '/api/create-participant'
             axios.post(apiURL, data)
               .then(function (response) {
-                //TODO: IMPLEMENT API RESPONSE
-                console.log(response);
+                this.setState({
+                    uuidInput: '',
+                    nameInput: '',
+                    emailInput: '',
+                })
+                toast.success("Participant created successfully.")
               })
               .catch(function (error) {
-                //TODO: IMPLEMENT API ERROR RESPONSE
-                console.log(error);
-              });
+                toast.error(error.message)
+            });
         }
 
         return (
             <>
+            <Toaster
+                position="bottom-right"
+                reverseOrder={false}
+            />
             <div>
                 <Heading>Create Participant</Heading>
                 <FormControl>

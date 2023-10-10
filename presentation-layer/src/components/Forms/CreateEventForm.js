@@ -24,6 +24,7 @@ class CreateEventForm extends Component {
             descriptionInput: '',
             emailInput: '',
         }
+        this.resetState = this.resetState.bind(this)
     }
     handleUuidChange = (e) => this.setState({ uuidInput: e.target.value})
     handleDateChange = (e) => this.setState({ dateInput: e.target.value})
@@ -31,6 +32,14 @@ class CreateEventForm extends Component {
     handleTitleChange = (e) => this.setState({ titleInput: e.target.value})
     handleDescriptionChange = (e) => this.setState({ descriptionInput: e.target.value})
     handleEmailInput = (e) => this.setState({ emailInput: e.target.value})
+    resetState = () => this.setState({
+        uuidInput: '',
+        dateInput: '',
+        timeInput: '',
+        titleInput: '',
+        descriptionInput: '',
+        emailInput: '',
+    })
 
     render() {
         const emailRegex = new RegExp('^(?=.{1,64}@)[A-Za-z0-9_-]+(\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*(\.[A-Za-z]{2,})$')
@@ -59,18 +68,12 @@ class CreateEventForm extends Component {
             }
             let apiURL = '/api/create-event'
             axios.post(apiURL, data)
-            .then(function (response) {
-                this.setState({
-                    uuidInput: '',
-                    dateInput: '',
-                    timeInput: '',
-                    titleInput: '',
-                    descriptionInput: '',
-                    emailInput: '',
-                })
+            .then(response => {
+                this.resetState()
                 toast.success("Event created successfully.")
               })
             .catch(function (error) {
+                console.log(error)
                 toast.error(error.response.data.message)
             });
         }

@@ -17,10 +17,15 @@ class RegisterParticipantForm extends Component {
             eventInput: '',
             participantInput: '',
         }
+        this.resetState = this.resetState.bind(this)
     }
 
     handleEventChange = (e) => this.setState({ eventInput: e.target.value})
     handleParticipantChange = (e) => this.setState({ participantInput: e.target.value})
+    resetState = () => this.setState({
+        eventInput: '',
+        participantInput: '',
+    })
 
     render() {
         const { eventInput, participantInput } = this.state
@@ -33,11 +38,8 @@ class RegisterParticipantForm extends Component {
         const handleSubmit = () => {
             let apiURL = `/api/register-participant?participantId=${participantInput}&eventId=${eventInput}`
             axios.put(apiURL)
-              .then(function (response) {
-                this.setState({
-                    eventInput: '',
-                    participantInput: '',
-                })
+              .then(response => {
+                this.resetState()
                 toast.success("Participant registered successfully")
               })
               .catch(function (error) {

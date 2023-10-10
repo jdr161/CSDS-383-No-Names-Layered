@@ -20,10 +20,16 @@ class CreateParticipantForm extends Component {
             nameInput: '',
             emailInput: '',
         }
+        this.resetState = this.resetState.bind(this)
     }
     handleUuidChange = (e) => this.setState({ uuidInput: e.target.value})
     handleNameChange = (e) => this.setState({ nameInput: e.target.value})
     handleEmailInput = (e) => this.setState({ emailInput: e.target.value})
+    resetState = () => this.setState({
+        uuidInput: '',
+        nameInput: '',
+        emailInput: '',
+    })
 
 
     render() {
@@ -47,12 +53,8 @@ class CreateParticipantForm extends Component {
             }
             let apiURL = '/api/create-participant'
             axios.post(apiURL, data)
-              .then(function (response) {
-                this.setState({
-                    uuidInput: '',
-                    nameInput: '',
-                    emailInput: '',
-                })
+              .then(response => {
+                this.resetState()
                 toast.success("Participant created successfully.")
               })
               .catch(function (error) {

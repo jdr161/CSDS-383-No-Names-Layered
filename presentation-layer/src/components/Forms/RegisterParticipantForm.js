@@ -19,11 +19,11 @@ class RegisterParticipantForm extends Component {
         }
     }
 
+    handleEventChange = (e) => this.setState({ eventInput: e.target.value})
+    handleParticipantChange = (e) => this.setState({ participantInput: e.target.value})
 
     render() {
         const { eventInput, participantInput } = this.state
-        const handleEventChange = (e) => this.setState({ eventInput: e.target.value})
-        const handleParticipantChange = (e) => this.setState({ participantInput: e.target.value})
 
         const isEventError = eventInput === ''
         const isParticipantError = participantInput === ''
@@ -56,7 +56,7 @@ class RegisterParticipantForm extends Component {
                 <Heading>Register Participant</Heading>
                 <FormControl isInvalid={isEventError}>
                     <FormLabel>Event UUID</FormLabel>
-                    <Input type='text' value={eventInput} onChange={handleEventChange} placeholder="" />
+                    <Input type='text' value={eventInput} onChange={this.handleEventChange} placeholder="" />
                     {isEventError &&
                         <FormErrorMessage>Event UUID is required</FormErrorMessage>
                     }
@@ -64,7 +64,7 @@ class RegisterParticipantForm extends Component {
                 
                 <FormControl isInvalid={isParticipantError}>
                     <FormLabel>Participant UUID</FormLabel>
-                    <Input type='text' value={participantInput} onChange={handleParticipantChange} placeholder="" />
+                    <Input type='text' value={participantInput} onChange={this.handleParticipantChange} placeholder="" />
                     {isParticipantError &&
                         <FormErrorMessage>Participant UUID is required</FormErrorMessage>
                     }

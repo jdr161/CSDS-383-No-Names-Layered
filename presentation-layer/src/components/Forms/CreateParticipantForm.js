@@ -21,13 +21,13 @@ class CreateParticipantForm extends Component {
             emailInput: '',
         }
     }
+    handleUuidChange = (e) => this.setState({ uuidInput: e.target.value})
+    handleNameChange = (e) => this.setState({ nameInput: e.target.value})
+    handleEmailInput = (e) => this.setState({ emailInput: e.target.value})
 
 
     render() {
         const { uuidInput, nameInput, emailInput } = this.state
-        const handleUuidChange = (e) => this.setState({ uuidInput: e.target.value})
-        const handleNameChange = (e) => this.setState({ nameInput: e.target.value})
-        const handleEmailInput = (e) => this.setState({ emailInput: e.target.value})
 
         const emailRegex = new RegExp('^(?=.{1,64}@)[A-Za-z0-9_-]+(\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*(\.[A-Za-z]{2,})$');
 
@@ -70,12 +70,12 @@ class CreateParticipantForm extends Component {
                 <Heading>Create Participant</Heading>
                 <FormControl>
                     <FormLabel>UUID</FormLabel>
-                    <Input type='text' value={uuidInput} onChange={handleUuidChange} placeholder="Set a UUID for the particpant, or leave blank for an auto-generated one..." />
+                    <Input type='text' value={uuidInput} onChange={this.handleUuidChange} placeholder="Set a UUID for the particpant, or leave blank for an auto-generated one..." />
                 </FormControl>
                 
                 <FormControl isInvalid={isNameError}>
                     <FormLabel>Name</FormLabel>
-                    <Input type='text' value={nameInput} onChange={handleNameChange} placeholder="Enter the name of the participant..." />
+                    <Input type='text' value={nameInput} onChange={this.handleNameChange} placeholder="Enter the name of the participant..." />
                     {isNameError &&
                         <FormErrorMessage>Name should be between 1 and 600 characters, inclusive.</FormErrorMessage>
                     }
@@ -83,7 +83,7 @@ class CreateParticipantForm extends Component {
 
                 <FormControl isInvalid={isEmailError}>
                     <FormLabel>Host Email</FormLabel>
-                    <Input type='email' value={emailInput} onChange={handleEmailInput} placeholder="Enter the email of the event host..." />
+                    <Input type='email' value={emailInput} onChange={this.handleEmailInput} placeholder="Enter the email of the event host..." />
                     {isEmailError &&
                         <FormErrorMessage>Invalid email.</FormErrorMessage>
                     }

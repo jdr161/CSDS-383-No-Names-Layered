@@ -9,6 +9,7 @@ import {
 } from '@chakra-ui/react'
 import moment from 'moment'
 import axios from 'axios'
+import { v4 as uuidv4 } from 'uuid'
 
 class CreateEventForm extends Component {
     constructor() {
@@ -35,24 +36,27 @@ class CreateEventForm extends Component {
 
         const emailRegex = new RegExp('^(?=.{1,64}@)[A-Za-z0-9_-]+(\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*(\.[A-Za-z]{2,})$');
 
-        const isDateError = dateInput === ''
-        const isTimeError = timeInput === ''
-        const isTitleError = titleInput === '' | titleInput.length > 255
-        const isDescriptionError = descriptionInput === '' | descriptionInput.length > 600
-        const isEmailError = emailInput === '' | !emailRegex.test(emailInput)
+        const isDateError = Boolean(dateInput === '')
+        const isTimeError = Boolean(timeInput === '')
+        const isTitleError = Boolean(titleInput === '' | titleInput.length > 255)
+        const isDescriptionError = Boolean(descriptionInput === '' | descriptionInput.length > 600)
+        const isEmailError = Boolean(emailInput === '' | !emailRegex.test(emailInput))
 
-        const submitDisabled = isDateError | isTimeError | isTitleError | isDescriptionError | isEmailError
+        const submitDisabled = Boolean(isDateError | isTimeError | isTitleError | isDescriptionError | isEmailError)
 
         const handleSubmit = () => {
             let data = {
-                uuid: uuidInput,
+                id: uuidInput,
                 date: dateInput, //input with type 'date' is already in form "YYYY-MM-DD"
                 time: moment(timeInput, 'HH:mm').format('hh:mm a'),
                 title: titleInput,
                 description: descriptionInput,
-                email: emailInput,
+                hostEmail: emailInput,
             }
-            let apiURL = ''
+            if(data.id == ''){
+                data.id = uuidv4()
+            }
+            let apiURL = '/api/create-event'
             axios.post(apiURL, data)
               .then(function (response) {
                 //TODO: IMPLEMENT API RESPONSE
@@ -85,7 +89,7 @@ class CreateEventForm extends Component {
                     <FormLabel>Time</FormLabel>
                     <Input type='time' value={timeInput} onChange={handleTimeChange} placeholder="Set a time for the event..." />
                     {isTimeError &&
-                        <FormErrorMessage>Email is required.</FormErrorMessage>
+                        <FormErrorMessage>Time is required.</FormErrorMessage>
                     }
                 </FormControl>
 

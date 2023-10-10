@@ -8,6 +8,7 @@ import {
     Heading,
 } from '@chakra-ui/react'
 import axios from 'axios'
+import { v4 as uuidv4 } from 'uuid'
 
 class CreateParticipantForm extends Component {
     constructor() {
@@ -28,18 +29,21 @@ class CreateParticipantForm extends Component {
 
         const emailRegex = new RegExp('^(?=.{1,64}@)[A-Za-z0-9_-]+(\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*(\.[A-Za-z]{2,})$');
 
-        const isNameError = nameInput === '' | nameInput.length > 600
-        const isEmailError = emailInput === '' | !emailRegex.test(emailInput)
+        const isNameError = Boolean(nameInput === '' | nameInput.length > 600)
+        const isEmailError = Boolean(emailInput === '' | !emailRegex.test(emailInput))
 
         const submitDisabled = isNameError | isEmailError
 
         const handleSubmit = () => {
             let data = {
-                uuid: uuidInput,
+                id: uuidInput,
                 name: nameInput,
                 email: emailInput,
             }
-            let apiURL = ''
+            if(data.id == ''){
+                data.id = uuidv4()
+            }
+            let apiURL = '/api/create-participant'
             axios.post(apiURL, data)
               .then(function (response) {
                 //TODO: IMPLEMENT API RESPONSE

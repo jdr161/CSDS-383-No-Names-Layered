@@ -1,4 +1,4 @@
-package com.nonames.layered;
+package com.nonames.layered.models;
 
 import jakarta.persistence.*;
 

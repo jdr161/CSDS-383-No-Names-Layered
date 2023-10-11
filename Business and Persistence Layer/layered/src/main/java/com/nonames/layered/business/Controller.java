@@ -1,5 +1,9 @@
-package com.nonames.layered;
+package com.nonames.layered.business;
 
+import com.nonames.layered.models.Event;
+import com.nonames.layered.models.Participant;
+import com.nonames.layered.persistence.EventRepository;
+import com.nonames.layered.persistence.ParticipantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

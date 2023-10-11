@@ -55,6 +55,7 @@ class CreateParticipantForm extends Component {
             axios.post(apiURL, data)
               .then(response => {
                 this.resetState()
+                this.props.setParticipants(this.props.participants.concat([data]))
                 toast.success("Participant created successfully.")
               })
               .catch(function (error) {

@@ -6,7 +6,8 @@ import RegisterParticipantForm from './Forms/RegisterParticipantForm'
 import EventsTable from './Tables/EventsTable'
 import ParticipantsTable from './Tables/ParticipantsTable'
 import { Container, Stack, HStack, Button } from "@chakra-ui/react"
-
+import eventService from "../services/eventService"
+import participantService from "../services/participantService"
 
 class Page extends Component {
     constructor() {
@@ -16,8 +17,48 @@ class Page extends Component {
             showCreateParticipantForm: false,
             showRegisterParticipantForm: false,
             showEventsTable: false,
-            showParticipantsTable: false
+            showParticipantsTable: false,
+            events: [],
+            participants: []
         }
+        this.setEvents = this.setEvents.bind(this)
+        this.setParticipants = this.setParticipants.bind(this)
+    }
+
+    async componentDidMount() {
+        try {
+            const eventsResponse = await eventService.getAllEvents()
+            this.setState({
+                ...this.state,
+                events: eventsResponse
+            })
+        } catch (error) {
+            console.error("Failed to get all events")
+        }
+
+        try {
+            const participantsResponse = await participantService.getAllParticipants()
+            this.setState({
+                ...this.state,
+                participants: participantsResponse
+            })
+        } catch (error) {
+            console.error("Failed to get all participants")
+        }
+    }
+
+    setEvents(events) {
+        this.setState({
+            ...this.state,
+            events: events
+        })
+    }
+
+    setParticipants(participants) {
+        this.setState({
+            ...this.state,
+            participants: participants
+        })
     }
 
     showComponent(name) {
@@ -73,11 +114,11 @@ class Page extends Component {
                         <Button onClick={() => this.showComponent("showParticipantsTable")}>Show All Participants</Button>
                     </HStack>
                     <Stack maxHeight={'100%'} p={4} spacing={8}>
-                        {showEventsTable && <EventsTable />}
-                        {showParticipantsTable && <ParticipantsTable />}
-                        {showCreateEventForm && <CreateEventForm />}
-                        {showCreateParticipantForm && <CreateParticipantForm />}
-                        {showRegisterParticipantForm && <RegisterParticipantForm />}
+                        {showEventsTable && <EventsTable events={this.state.events} />}
+                        {showParticipantsTable && <ParticipantsTable participants={this.state.participants} />}
+                        {showCreateEventForm && <CreateEventForm setEvents={this.setEvents} events={this.state.events} />}
+                        {showCreateParticipantForm && <CreateParticipantForm setParticipants={this.setParticipants} participants={this.state.participants} />}
+                        {showRegisterParticipantForm && <RegisterParticipantForm setEvents={this.setEvents} events={this.state.events} />}
                     </Stack>
                 </Stack>
             </Container>

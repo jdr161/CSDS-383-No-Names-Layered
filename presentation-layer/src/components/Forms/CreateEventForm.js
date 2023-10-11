@@ -26,12 +26,12 @@ class CreateEventForm extends Component {
         }
         this.resetState = this.resetState.bind(this)
     }
-    handleUuidChange = (e) => this.setState({ uuidInput: e.target.value})
-    handleDateChange = (e) => this.setState({ dateInput: e.target.value})
-    handleTimeChange = (e) => this.setState({ timeInput: e.target.value})
-    handleTitleChange = (e) => this.setState({ titleInput: e.target.value})
-    handleDescriptionChange = (e) => this.setState({ descriptionInput: e.target.value})
-    handleEmailInput = (e) => this.setState({ emailInput: e.target.value})
+    handleUuidChange = (e) => this.setState({ uuidInput: e.target.value })
+    handleDateChange = (e) => this.setState({ dateInput: e.target.value })
+    handleTimeChange = (e) => this.setState({ timeInput: e.target.value })
+    handleTitleChange = (e) => this.setState({ titleInput: e.target.value })
+    handleDescriptionChange = (e) => this.setState({ descriptionInput: e.target.value })
+    handleEmailInput = (e) => this.setState({ emailInput: e.target.value })
     resetState = () => this.setState({
         uuidInput: '',
         dateInput: '',
@@ -63,75 +63,85 @@ class CreateEventForm extends Component {
                 description: descriptionInput,
                 hostEmail: emailInput,
             }
-            if(data.id == ''){
+            if (data.id == '') {
                 data.id = uuidv4()
             }
             let apiURL = '/api/create-event'
             axios.post(apiURL, data)
-            .then(response => {
-                this.resetState()
-                toast.success("Event created successfully.")
-              })
-            .catch(function (error) {
-                console.log(error)
-                toast.error(error.response.data.message)
-            });
+                .then(response => {
+                    this.resetState()
+                    const data = response.data
+                    this.props.setEvents(this.props.events.concat([{
+                        id: data.id,
+                        date: data.date,
+                        time: data.time,
+                        title: data.title,
+                        descrption: data.description,
+                        hostEmail: data.hostEmail,
+                        participants: []
+                    }]))
+                    toast.success("Event created successfully.")
+                })
+                .catch(function (error) {
+                    console.log(error)
+                    toast.error(error.response.data.message)
+                });
         }
 
         return (
             <>
-            <Toaster
-                position="bottom-right"
-                reverseOrder={false}
-            />
-            <div>
-                <Heading>Create Event</Heading>
-                <FormControl>
-                    <FormLabel>UUID</FormLabel>
-                    <Input type='text' value={uuidInput} onChange={this.handleUuidChange} placeholder="Set a UUID for the event, or leave blank for an auto-generated one..." />
-                </FormControl>
+                <Toaster
+                    position="bottom-right"
+                    reverseOrder={false}
+                />
+                <div>
+                    <Heading>Create Event</Heading>
+                    <FormControl>
+                        <FormLabel>UUID</FormLabel>
+                        <Input type='text' value={uuidInput} onChange={this.handleUuidChange} placeholder="Set a UUID for the event, or leave blank for an auto-generated one..." />
+                    </FormControl>
 
-                <FormControl isInvalid={isDateError}>
-                    <FormLabel>Date</FormLabel>
-                    <Input type='date' value={dateInput} onChange={this.handleDateChange} placeholder="Set a date for the event..." />
-                    {isDateError &&
-                        <FormErrorMessage>Date is required.</FormErrorMessage>
-                    }
-                </FormControl>
+                    <FormControl isInvalid={isDateError}>
+                        <FormLabel>Date</FormLabel>
+                        <Input type='date' value={dateInput} onChange={this.handleDateChange} placeholder="Set a date for the event..." />
+                        {isDateError &&
+                            <FormErrorMessage>Date is required.</FormErrorMessage>
+                        }
+                    </FormControl>
 
-                <FormControl isInvalid={isTimeError}>
-                    <FormLabel>Time</FormLabel>
-                    <Input type='time' value={timeInput} onChange={this.handleTimeChange} placeholder="Set a time for the event..." />
-                    {isTimeError &&
-                        <FormErrorMessage>Time is required.</FormErrorMessage>
-                    }
-                </FormControl>
+                    <FormControl isInvalid={isTimeError}>
+                        <FormLabel>Time</FormLabel>
+                        <Input type='time' value={timeInput} onChange={this.handleTimeChange} placeholder="Set a time for the event..." />
+                        {isTimeError &&
+                            <FormErrorMessage>Time is required.</FormErrorMessage>
+                        }
+                    </FormControl>
 
-                <FormControl isInvalid={isTitleError}>
-                    <FormLabel>Title</FormLabel>
-                    <Input type='text' value={titleInput} onChange={this.handleTitleChange} placeholder="Set the title for the event..." />
-                    {isTitleError &&
-                        <FormErrorMessage>Title should be between 1 and 255 characters, inclusive.</FormErrorMessage>
-                    }
-                </FormControl>
-                
-                <FormControl isInvalid={isDescriptionError}>
-                    <FormLabel>Description</FormLabel>
-                    <Input type='text' value={descriptionInput} onChange={this.handleDescriptionChange} placeholder="Set the description for the event..." />
-                    {isDescriptionError &&
-                        <FormErrorMessage>Description should be between 1 and 600 characters, inclusive.</FormErrorMessage>
-                    }
-                </FormControl>
+                    <FormControl isInvalid={isTitleError}>
+                        <FormLabel>Title</FormLabel>
+                        <Input type='text' value={titleInput} onChange={this.handleTitleChange} placeholder="Set the title for the event..." />
+                        {isTitleError &&
+                            <FormErrorMessage>Title should be between 1 and 255 characters, inclusive.</FormErrorMessage>
+                        }
+                    </FormControl>
 
-                <FormControl isInvalid={isEmailError}>
-                    <FormLabel>Host Email</FormLabel>
-                    <Input type='email' value={emailInput} onChange={this.handleEmailInput} placeholder="Enter the email of the event host..." />
-                    {isEmailError &&
-                        <FormErrorMessage>Invalid email.</FormErrorMessage>
-                    }
-                </FormControl>
-                <Button onClick={handleSubmit} isDisabled={submitDisabled}>Submit</Button>
-            </div>
+                    <FormControl isInvalid={isDescriptionError}>
+                        <FormLabel>Description</FormLabel>
+                        <Input type='text' value={descriptionInput} onChange={this.handleDescriptionChange} placeholder="Set the description for the event..." />
+                        {isDescriptionError &&
+                            <FormErrorMessage>Description should be between 1 and 600 characters, inclusive.</FormErrorMessage>
+                        }
+                    </FormControl>
+
+                    <FormControl isInvalid={isEmailError}>
+                        <FormLabel>Host Email</FormLabel>
+                        <Input type='email' value={emailInput} onChange={this.handleEmailInput} placeholder="Enter the email of the event host..." />
+                        {isEmailError &&
+                            <FormErrorMessage>Invalid email.</FormErrorMessage>
+                        }
+                    </FormControl>
+                    <Button onClick={handleSubmit} isDisabled={submitDisabled}>Submit</Button>
+                </div>
             </>
         )
     }

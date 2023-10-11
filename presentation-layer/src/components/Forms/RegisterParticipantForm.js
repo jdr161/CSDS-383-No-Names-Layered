@@ -40,6 +40,7 @@ class RegisterParticipantForm extends Component {
             axios.put(apiURL)
               .then(response => {
                 this.resetState()
+                this.props.setEvents(this.props.events.map(e => e.id === response.data.id ? response.data : e))
                 toast.success("Participant registered successfully")
               })
               .catch(function (error) {

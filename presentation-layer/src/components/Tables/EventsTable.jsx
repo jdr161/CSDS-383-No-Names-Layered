@@ -1,27 +1,7 @@
 import { Table, Thead, Tbody, TableContainer, Tr, Th, Td, UnorderedList, ListItem, Heading } from "@chakra-ui/react"
 import React, { Component } from "react"
-// import { events } from "../../example-data/events"
-import eventService from "../../services/eventService"
 
 class EventsTable extends Component {
-    constructor() {
-        super()
-        this.state = {
-            events: []
-        }
-    }
-
-    async componentDidMount() {
-        try {
-            const eventsResponse = await eventService.getAllEvents()
-            this.setState({
-                events: eventsResponse
-            })
-        } catch (error) {
-            console.error("Failed to get all events")
-        }
-    }
-
     render() {
         return (
             <TableContainer maxHeight={'50vh'} overflowY={'auto'} overflowX={'auto'}>
@@ -39,9 +19,9 @@ class EventsTable extends Component {
                         </Tr>
                     </Thead>
                     <Tbody>
-                        {this.state.events.map((event => {
+                        {this.props.events.map((event => {
                             return (
-                                <Tr>
+                                <Tr key={event.id}>
                                     <Td>{event.id}</Td>
                                     <Td>{event.date}</Td>
                                     <Td>{event.time}</Td>
@@ -50,11 +30,11 @@ class EventsTable extends Component {
                                     <Td>{event.hostEmail}</Td>
                                     <Td>{event.participants.map(participant => {
                                         return (
-                                            <UnorderedList>
-                                                <ListItem key={'participant-name'}>Name: {participant.name}
+                                            <UnorderedList key={participant.id}>
+                                                <ListItem key={participant.name}>Name: {participant.name}
                                                     <UnorderedList>
-                                                        <ListItem key={'participant-id'}>ID: {participant.id}</ListItem>
-                                                        <ListItem key={'participant-email'}>Email: {participant.email}</ListItem>
+                                                        <ListItem key={participant.id}>ID: {participant.id}</ListItem>
+                                                        <ListItem key={participant.email}>Email: {participant.email}</ListItem>
                                                     </UnorderedList>
                                                 </ListItem>
                                             </UnorderedList>

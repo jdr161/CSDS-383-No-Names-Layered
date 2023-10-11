@@ -51,7 +51,7 @@ The goal of this project was to develop an application using a layered architect
 - Clone the repository
 - Navigate into the "Business and Persistence Layer" folder with ```cd '.\Business and Persistence Layer\layered'```
 - Start the backend by either:
-  - running the jar file with ```java -jar ```
+  - running the jar file with ```java -jar csds383-nonames-layered-backend.jar```
   - OR building the java project with Maven and running "LayeredApplication.java"
 - In a NEW terminal, navigate into the "presentation-layer" with ```cd presentation-layer```
 - Start the presenation layer by running the following commands in order:

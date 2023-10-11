@@ -76,7 +76,7 @@ class CreateEventForm extends Component {
                         date: data.date,
                         time: data.time,
                         title: data.title,
-                        descrption: data.description,
+                        description: data.description,
                         hostEmail: data.hostEmail,
                         participants: []
                     }]))

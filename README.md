@@ -47,7 +47,7 @@ The goal of this project was to develop an application using a layered architect
 - This application should not use micro-services.
 
 ## How to run the project
-- Make sure you have the relevant version of Node and Java Development Kit installed (see [Versions Section](##Versions))
+- Make sure you have the relevant version of Node and Java Development Kit installed (see [Versions Section](#versions))
 - Clone the repository
 - Navigate into the "Business and Persistence Layer" folder with ```cd '.\Business and Persistence Layer\layered'```
 - Start the backend by either:

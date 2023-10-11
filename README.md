@@ -1,12 +1,14 @@
 # CSDS-383-No-Names-Layered
-Presentation Layer: Node v18.12.0
-Business and Persistence Layer: JDK version 19 (Amazon Corretto)
-Data Layer: PostgresSQL via https://www.elephantsql.com/
+
+## Versions
+Presentation Layer: Node v18.12.0\
+Business and Persistence Layer: JDK version 19 (Amazon Corretto)\
+Data Layer: PostgresSQL in the cloud via https://aws.amazon.com/rds/
 
 ## Explanation of Project
-The goal of this project was to develop an application using a monolithic architecture. The application had the following requirements:
+The goal of this project was to develop an application using a layered architecture. The application had the following requirements:
 
-- The client should be able to execute and interact with the application via a command line interface (CLI).
+- The client should be able to execute and interact with the application via a web browser.
 - The client should be able to create events.
   - Each event should have the following attributes:
     - Event Id: A UUID. If the UUID is not provided, the application should generate one for the
@@ -33,8 +35,26 @@ The goal of this project was to develop an application using a monolithic archit
       - Invalid emails should be rejected.
 - All events and event participants should be stored in a database (relational databases are recommended, but any database works for this exercise).
 - The client should be able to list all the events and event participants available stored in the system (database).
-- The application should be monolithic and run locally (no need for the customers to deploy this application).
-- The application should be able to be executed in a Unix-based or Windows environment.
+- The application should be layered and should have at least four main layers, teams might choose to reorganize the layers as needed:
+  - Presentation Layer
+  - Business Layer or Service Layer.
+  - Persistence Layer
+  - Additionally, a Data Layer is required for the Database. 
+- The application should have at least three tiers. For this exercise all the tiers can be located in the same machine.
+  - Presentation Layer - Single Deployment Unit
+  - Business Layer or Service Layer, plus Persistence Layer - Single Deployment Unit
+  - Data Layer - Single Deployment Unit
+- This application should not use micro-services.
 
 ## How to run the project
-TODO : add
+- Make sure you have the relevant version of Node and Java Development Kit installed (see [Versions Section](##Versions))
+- Clone the repository
+- Navigate into the "Business and Persistence Layer" folder with ```cd '.\Business and Persistence Layer\layered'```
+- Start the backend by either:
+  - running the jar file with ```java -jar ```
+  - OR building the java project with Maven and running "LayeredApplication.java"
+- In a NEW terminal, navigate into the "presentation-layer" with ```cd presentation-layer```
+- Start the presenation layer by running the following commands in order:
+  - ```npm install```
+  - ```npm run start```
+- Open a browser and navigate to [http://localhost:3000](http://localhost:3000)

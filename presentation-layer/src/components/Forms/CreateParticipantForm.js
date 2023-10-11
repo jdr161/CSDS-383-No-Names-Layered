@@ -85,8 +85,8 @@ class CreateParticipantForm extends Component {
                 </FormControl>
 
                 <FormControl isInvalid={isEmailError}>
-                    <FormLabel>Host Email</FormLabel>
-                    <Input type='email' value={emailInput} onChange={this.handleEmailInput} placeholder="Enter the email of the event host..." />
+                    <FormLabel>Email</FormLabel>
+                    <Input type='email' value={emailInput} onChange={this.handleEmailInput} placeholder="Enter the email of the participant..." />
                     {isEmailError &&
                         <FormErrorMessage>Invalid email.</FormErrorMessage>
                     }
